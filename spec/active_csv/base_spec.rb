@@ -7,6 +7,7 @@ describe ActiveCSV::Base do
   it "can be initialized with nothing" do
     active_csv = ActiveCSV::Base.new
     expect(active_csv).to be_kind_of(ActiveCSV::Base)
+    expect { active_csv.first_name }.to raise_exception(NoMethodError)
   end
 
   describe "attribute readers" do
@@ -37,6 +38,16 @@ describe ActiveCSV::Base do
       expect(active_csv.name).to eq(nil)
       expect(active_csv.age).to eq("24")
       expect(active_csv.respond_to?(:name)).to eq true
+    end
+
+    it "normalizes csv headers" do
+      row = CSV::Row.new(["First     Name", "  aGe  ",], [nil, "24"])
+
+      active_csv = ActiveCSV::Base.new(row)
+
+      expect(active_csv.first_name).to eq(nil)
+      expect(active_csv.age).to eq("24")
+      expect(active_csv.respond_to?(:first_name)).to eq true
     end
   end
 

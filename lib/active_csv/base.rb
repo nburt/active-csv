@@ -4,7 +4,7 @@ module ActiveCSV
   class Base
 
     def initialize(row = nil)
-      @row = row
+      @row = normalize(row)
     end
 
     def method_missing(method_name, *args, &block)
@@ -20,6 +20,19 @@ module ActiveCSV
         true
       else
         super
+      end
+    end
+
+    private
+
+    def normalize(row)
+      if row
+        headers = row.headers.map do |header|
+          header.downcase.split(" ").map { |column| column.strip }.join("_")
+        end
+        fields = row.fields
+
+        CSV::Row.new(headers, fields)
       end
     end
 
