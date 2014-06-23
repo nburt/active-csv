@@ -72,7 +72,7 @@ describe Things do
 
       actual = Things.all
 
-      expect(actual.length).to eq 2
+      expect(actual.length).to eq 3
       expect(actual.first.id).to eq "4"
       expect(actual.last.first_name).to eq "Bebe"
     end
@@ -93,6 +93,17 @@ describe Things do
 
       expect(actual.id).to eq "5"
       expect(actual.first_name).to eq "Bebe"
+    end
+
+    it "has a .where method that returns a filtered array of objects" do
+      Things.file_path = "./spec/fixtures/sample.csv"
+
+      actual = Things.where { |thing| thing.first_name == "Joe" }
+
+      expect(actual.length).to eq 2
+      expect(actual.first.id).to eq "4"
+      expect(actual.last.id).to eq "6"
+      expect(actual.first.first_name).to eq "Joe"
     end
   end
 

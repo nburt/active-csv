@@ -15,4 +15,8 @@ class Things < ActiveCSV::Base
     self.all.last
   end
 
+  def self.where(&block)
+    self.all.select &block
+  end
+
 end
