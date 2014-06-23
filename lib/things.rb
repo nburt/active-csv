@@ -7,4 +7,8 @@ class Things < ActiveCSV::Base
     end
   end
 
+  def self.first
+    self.all.first
+  end
+
 end

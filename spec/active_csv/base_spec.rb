@@ -67,7 +67,7 @@ end
 describe Things do
 
   describe "Things methods" do
-    it ".all method that returns an array of ActiveCSV::Base objects" do
+    it "has a .all method that returns an array of ActiveCSV::Base objects" do
       Things.file_path = "./spec/fixtures/sample.csv"
 
       actual = Things.all
@@ -75,6 +75,15 @@ describe Things do
       expect(actual.length).to eq 2
       expect(actual.first.id).to eq "4"
       expect(actual.last.first_name).to eq "Bebe"
+    end
+
+    it "has a .first method that returns an object representing the first row in the csv file" do
+      Things.file_path = "./spec/fixtures/sample.csv"
+
+      actual = Things.first
+
+      expect(actual.id).to eq "4"
+      expect(actual.first_name).to eq "Joe"
     end
   end
 
