@@ -19,4 +19,8 @@ class Things < ActiveCSV::Base
     self.all.select &block
   end
 
+  def self.order(&block)
+    self.all.sort_by &block
+  end
+
 end

@@ -105,6 +105,16 @@ describe Things do
       expect(actual.last.id).to eq "6"
       expect(actual.first.first_name).to eq "Joe"
     end
+
+    it "has a .order method that will return an ordered array of objects" do
+      Things.file_path = "./spec/fixtures/sample.csv"
+
+      actual = Things.order { |thing| thing.id }
+
+      expect(actual.first.id).to eq "4"
+      expect(actual[1].id).to eq "5"
+      expect(actual.last.id).to eq "6"
+    end
   end
 
 end
