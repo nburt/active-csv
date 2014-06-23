@@ -8,7 +8,7 @@ module ActiveCSV
     end
 
     def method_missing(method_name, *args, &block)
-      if @row[method_name.to_s]
+      if @row.has_key?(method_name.to_s)
         @row[method_name.to_s]
       else
         super
@@ -16,7 +16,7 @@ module ActiveCSV
     end
 
     def respond_to_missing?(method_name, include_private = false)
-      if @row[method_name.to_s]
+      if @row.has_key?(method_name.to_s)
         true
       else
         super

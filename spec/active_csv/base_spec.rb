@@ -28,6 +28,16 @@ describe ActiveCSV::Base do
       expect { active_csv.first_name }.to raise_exception(NoMethodError)
       expect(active_csv.respond_to?(:first_name)).to eq false
     end
+
+    it "returns nil if the value of the column is nil" do
+      row = CSV::Row.new(["name", "age"], [nil, "24"])
+
+      active_csv = ActiveCSV::Base.new(row)
+
+      expect(active_csv.name).to eq(nil)
+      expect(active_csv.age).to eq("24")
+      expect(active_csv.respond_to?(:name)).to eq true
+    end
   end
 
   describe ".file_path" do
