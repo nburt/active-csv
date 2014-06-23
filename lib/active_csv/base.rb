@@ -23,6 +23,14 @@ module ActiveCSV
       end
     end
 
+    def self.file_path=(path)
+      @file_path = path
+    end
+
+    def self.file_path
+      @file_path
+    end
+
     private
 
     def normalize(row)

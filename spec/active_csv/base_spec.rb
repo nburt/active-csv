@@ -1,6 +1,7 @@
 require 'rspec'
 require 'active_csv/base'
 require 'csv'
+require './lib/things.rb'
 
 describe ActiveCSV::Base do
 
@@ -53,11 +54,27 @@ describe ActiveCSV::Base do
 
   describe ".file_path" do
     it "allows you to set the file path to the CSV" do
-      pending
       klass = Class.new(ActiveCSV::Base) do
         self.file_path = "foo"
       end
+
       expect(klass.file_path).to eq("foo")
+    end
+  end
+
+end
+
+describe Things do
+
+  describe "Things methods" do
+    it ".all method that returns an array of ActiveCSV::Base objects" do
+      Things.file_path = "./spec/fixtures/sample.csv"
+
+      actual = Things.all
+
+      expect(actual.length).to eq 2
+      expect(actual.first.id).to eq "4"
+      expect(actual.last.first_name).to eq "Bebe"
     end
   end
 
