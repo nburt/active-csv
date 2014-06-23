@@ -31,12 +31,24 @@ module ActiveCSV
       @file_path
     end
 
+    def self.field_prefix=(prefix)
+      @field_prefix = prefix
+    end
+
+    def self.field_prefix
+      @field_prefix
+    end
+
     private
 
     def normalize(row)
       if row
         headers = row.headers.map do |header|
-          header.downcase.split(" ").map { |column| column.strip }.join("_")
+          if self.class.field_prefix
+            header.downcase.split(" ").map { |column| column.strip }.join("_").gsub("#{self.class.field_prefix.to_s}", "")
+          else
+            header.downcase.split(" ").map { |column| column.strip }.join("_")
+          end
         end
         fields = row.fields
 

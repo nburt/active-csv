@@ -62,6 +62,16 @@ describe ActiveCSV::Base do
     end
   end
 
+  describe ".field_prefix" do
+    it "allows you to set the prefix to CSV headers" do
+      klass = Class.new(ActiveCSV::Base) do
+        self.field_prefix = :usr_
+      end
+
+      expect(klass.field_prefix).to eq(:usr_)
+    end
+  end
+
 end
 
 describe Things do
@@ -124,6 +134,12 @@ describe Things do
       expect(actual.first.id).to eq "4"
       expect(actual[1].id).to eq "5"
       expect(actual.last.id).to eq "6"
+    end
+
+    it "can remove prefixes from column names" do
+      Things.field_prefix = :usr_
+      things = Things.new(CSV::Row.new(["usr_name", "usr_email"], ["jexample", "joe@example.com"]))
+      expect(things.name).to eq "jexample"
     end
   end
 
