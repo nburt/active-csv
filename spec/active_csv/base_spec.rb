@@ -19,6 +19,15 @@ describe ActiveCSV::Base do
       expect(active_csv.age).to eq("24")
       expect(active_csv.respond_to?(:name)).to eq true
     end
+
+    it "raises an error if the csv row doesn't have that column" do
+      row = CSV::Row.new(["name", "age"], ["joe", "24"])
+
+      active_csv = ActiveCSV::Base.new(row)
+
+      expect { active_csv.first_name }.to raise_exception(NoMethodError)
+      expect(active_csv.respond_to?(:first_name)).to eq false
+    end
   end
 
   describe ".file_path" do

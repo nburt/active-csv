@@ -10,11 +10,17 @@ module ActiveCSV
     def method_missing(method_name, *args, &block)
       if @row[method_name.to_s]
         @row[method_name.to_s]
+      else
+        super
       end
     end
 
     def respond_to_missing?(method_name, include_private = false)
-      !!@row[method_name.to_s]
+      if @row[method_name.to_s]
+        true
+      else
+        super
+      end
     end
 
   end
