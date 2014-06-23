@@ -85,6 +85,15 @@ describe Things do
       expect(actual.id).to eq "4"
       expect(actual.first_name).to eq "Joe"
     end
+
+    it "has a .last method that returns an object representing the first row in the csv file" do
+      Things.file_path = "./spec/fixtures/sample.csv"
+
+      actual = Things.last
+
+      expect(actual.id).to eq "5"
+      expect(actual.first_name).to eq "Bebe"
+    end
   end
 
 end

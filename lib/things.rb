@@ -11,4 +11,8 @@ class Things < ActiveCSV::Base
     self.all.first
   end
 
+  def self.last
+    self.all.last
+  end
+
 end
