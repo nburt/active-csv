@@ -19,8 +19,12 @@ class Things < ActiveCSV::Base
     self.all.select &block
   end
 
-  def self.order(&block)
-    self.all.sort_by &block
+  def self.order(header = nil, &block)
+    if header
+      self.all.sort_by { |thing| thing.send(header) }
+    else
+      self.all.sort_by &block
+    end
   end
 
 end

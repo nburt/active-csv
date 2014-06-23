@@ -115,6 +115,16 @@ describe Things do
       expect(actual[1].id).to eq "5"
       expect(actual.last.id).to eq "6"
     end
+
+    it "has a .order method that should also take a symbol" do
+      Things.file_path = "./spec/fixtures/sample.csv"
+
+      actual = Things.order(:id)
+
+      expect(actual.first.id).to eq "4"
+      expect(actual[1].id).to eq "5"
+      expect(actual.last.id).to eq "6"
+    end
   end
 
 end
